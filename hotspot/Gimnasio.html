@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts (Montserrat y Oswald para un look deportivo) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --primary-color: #ff003c; /* Rojo Neon */
+            --secondary-color: #fcee0a; /* Amarillo Neon */
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #151515;
+            --text-light: #f8f9fa;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+
+        }
+        /*---NAVBAR---*/
+        .navbar {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .navbar.scrolled {
+            background: var(--darker-bg);
+            box-shadow: 0 5px 20px rgba(255, 0, 60, 0.1);
+
+        }
+        .navbar-brand {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white !important;
+            letter-spacing: 2px;
+
+
+        }
+        .navbar-brand span { color: var(--primary-color);}
+        .navbar-link {
+            color: var(--text-light) !important;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9px;
+            margin: 0 10px;
+            position: relative;
+
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {width: 100%; }
+
+        /*---HERO SECCION---*/
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(5, 5, 5, 0.9)),
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-bottom: 3px solid var(--primary-color);
+
+
+        }
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            text-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
+            animation: slideInLeft 1s ease-out;
+
+        }
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            animation: slideInLeft 1.2s ease-out;
+
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform:translatex(-100px); }
+            to {opacity: 1; transform: translateX(0); }
+        }
+
+        /*--BOTONES---*/
+        .btn-neon {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 60, 0.4);
+            position: relative;
+            overflow: hidden;
+
+        }
+        .btn-neon:hover {
+            background-color: #cc0030;
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.8);
+            transform: translateY(-3px);
+            color: white;
+        }
+        .btn-outline-neon {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 13px 38px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+
+        }
+        .btn-outline-neon:hover {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.6);
+
+        }
+        /*---SECCIONES Y TARJETAS--*/
+        .section-padding { padding: 100px 0; }
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+
+        }
+        .section-title h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 25%;
+
+        }
+
+        /* TARJETAS GLASSMORPHISM*/
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px 30px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            background: linear-gradient(135deg, rgba(255, 0, 60, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 15px 30px rgba(255, 0, 60, 0.15);
+
+        }
+        .glass-card:hover::before { opacity: 1; }
+
+        .glass-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+
+        }
+        .glass-card:hover i { transform: scale(1.2); }
+
+        /* --- PLANES --- */
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+
+        }
+        .pricing-card.popular {
+            border-color: var(--primary-color);
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(255, 0, 60, 0.2);
+
+        }
+        .badge-popular {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: 700;
+            
+        }
+        .price{
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            font-family: 'Oswald', sans-resif;
+
+        }
+        .pricing-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+
+        }
+        .pricing-card ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-muted);
+
+        }
+        /*--- CLASES (SLIDER) ---*/
+        .class-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            height: 400px;
+            cursor: pointer;
+
+        }
+        .class-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+
+        }
+        .class-card:hover img { transform:scale(1.1); }
+        .class-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(5,5,5,0.9), transparent);
+            transition: all 0.3s ease;
+
+        }
+        .class-overlay h4 { color: white; margin: 0; }
+        .class-overlay p { color: var(--primary-color); margin: 0; font-weight: 700; font-size: 0.9rem; }
+
+        /* --- TESTIMONIOS --*/
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border-left:  4px solid var(--primary-color);
+
+        }
+        .stars i { color: var(--secondary-color); }
+        .avatar {
+            width: 60px; height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+
+        }
+        /* --- PERSONALIZACION SWEETALERT2 ---*/
+        .swal2-popup.custom-swal {
+            background: var(--card-bg) !important;
+            color: white !important;
+            border: 1px solid var(--primary-color) !important;
+            border-radius: 20px !important;
+            box-shadow: 0 0 40px rgba(255, 0, 60, 0.3) !important;
+        
+        }
+         .swal2-title.custom-title {
+            color: white !important;
+            font-family: 'Oswald', sans-serif !important;
+            text-transform: uppercase;
+       
+        }
+        .swal2-html-container.custom-html {
+            color: var(--text-muted) !important;
+        
+        }
+        .swal2-confirm.custom-btn {
+            background: var(--primary-color) !important;
+            border-radius: 5px !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            box-shadow: 0 0 15px rgba(255,0,60,0.5) !important;
+        
+        }
+        .swal2-cancel.custom-btn-cancel {
+            background: #333 !important;
+            border-radius: 5px !important;
+        
+        }
+
+
+         /* Slider dentro del modal */
+        .modal-slider {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding-bottom: 10px;
+        
+        }
+        .modal-slider::-webkit-scrollbar { height: 5px; }
+        .modal-slider::-webkit-scrollbar-thumb { background: var(--primary-color); border-radius: 10px; }
+        .modal-slider img {
+            width: 250px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            scroll-snap-align: start;
+            border: 1px solid #333;
+        
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--darker-bg);
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+
+        }
+        .social-icon {
+            width: 40px; height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+            color: white;
+            border-radius: 50%;
+            margin: 0 5px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+
+        }
+        .social-icon:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fa-solid fa-dumbbell me-2"></i>IRON<span>FIT</span></i></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#clases">Clases</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#planes">Planes</a></li>
+                    <li class="nav-item ms-lg-4 mt-3 mt-lg-0">
+                        <a class="btn btn-neon" href="#planes">Unete Ahora</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!--HERO SECTION-->
+    <section id="inicio" class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1 class="hero-title">Supera<br><span style="color: var(--primary-color);">Tus Limites</span></h1>
+                    <p class="hero-subtitle">Entrena con la mejor tecnologia, entrenadores de elite y una comunidad que te impulsa a ser mejor cada dia.</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <button class="btn btn-neon" onclick="showTrialModal()">Prueba Gratis</button>
+                        <a href="#servicios" class="btn btn-outline-neon">Ver Instalaciones</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--SERVICIOS-->
+    <section id="servicios" class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Por que <span style="color: var(--primary-color);">Por que elegirnos?</span></h2>
+                <div>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="glass-card text-center">
+                                <i class="fa-solid fa-heart-pulse"></i>
+                                <h4>Equipamiento de Ultima Generacion</h4>
+                                <p class="text-muted mt-3">Maquinas inteligentescon seguimiento biometrico para optimizar cada repeticion.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="glass-card text-center">
+                                <i class="fa-solid fa-user-ninja"></i>
+                                <h4>Entrenadores Elite</h4>
+                                <p class="text-muted mt-3">Planes personalisadosdiseñados por profesionales certificados a nivel internacional.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="glass-card text-center">
+                                <i class="fa-solid fa-clock"></i>
+                                <h4>Acceso 24/7</h4>
+                                <p class="text-muted mt-3">Tu horario, tus reglas. Entrena cuando quierascon acceso seguro mediantes huella digital.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <!--CLASE (SLIDER VISUAL)-->
+    <section id="clases" class="section-padding" style="background: var(--darker-bg);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nuestras <span style="color: var(--primary-color);">Clases</span></h2>
+            </div>
+            <div class="row g-4">
+                <!-- Clase 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="class-card" onclick="showClassModal('Crossfit', 'Alta intensidad', ['https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=500&auto=format&fit=crop', 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=500&auto=format&fit=crop'])">
+                        <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=500&auto=format&fit=crop" alt="Crossfit">
+                        <div class="class-overlay">
+                            <h4>Crossfit</h4>
+                            <p>Ver detalles <i class="fa-solid fa-arrow-right ms-1"></i></p>
+                        </div>
+                     </div>
+                </div>
+
+                <!-- Clase 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="class-card" onclick="showClassModal('Yoga & Flexibilidad', 'Mente y cuerpo', ['https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop', 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?q=80&w=500&auto=format&fit=crop'])">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=500&auto=format&fit=crop" alt="Yoga">
+                        <div class="class-overlay">
+                            <h4>Yoga</h4>
+                            <p>Ver detalles <i class="fa-solid fa-arrow-right ms-1"></i></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clase 3 -->
+                 <div class="col-md-6 col-lg-3">
+                    <div class="class-card" onclick="showClassModal('Spinning', 'Cardio extremo', ['https://images.unsplash.com/photo-1552674605-15cff224a520?q=80&w=500&auto=format&fit=crop', 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=500&auto=format&fit=crop'])">
+                        <img src="https://images.unsplash.com/photo-1552674605-15cff224a520?q=80&w=500&auto=format&fit=crop" alt="Spinning">
+                        <div class="class-overlay">
+                            <h4>Spinning</h4>
+                            <p>Ver detalles <i class="fa-solid fa-arrow-right ms-1"></i></p>
+                        </div>
+                    </div>
+                 </div>
+                 
+                 <!--Clase 4 -->
+                 <div class="col-md-6 col-lg-3">
+                    <div class="class-card" onclick="showClassModal('Boxeo', 'Fuerza y agilidad', ['https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=500&auto=format&fit=crop', 'https://images.unsplash.com/photo-1509563268479-0f0047b8a1b9?q=80&w=500&auto=format&fit=crop'])">
+                        <img src="https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=500&auto=format&fit=crop" alt="Boxeo">
+                        <div class="class-overlay">
+                            <h4>Boxeo</h4>
+                            <p>Ver detalles <i class="fa-solid fa-arrow-right ms-1"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--PLANES-->
+    <section id="planes" class="section-padding">
+        <div class="container">
+            <div class="section-title">
+                <h2>Elige Tu <span style="color: var(--primary-color);">Plan</span></h2>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <!--Plan Basico-->
+                <div class="col-md-4">
+                    <div class="pricing-card">
+                        <h3 class="text-white"></h3>
+                        <div class="price">$29<span style="font-size: 1rem; color: var(--text-muted);">/mes</span></div>
+                        <ul>
+                            <li><i class="fa-solid fa-check"></i> Acceso al área de pesas</li>
+                            <li><i class="fa-solid fa-check"></i> Casillero estándar</li>
+                            <li><i class="fa-solid fa-xmark" style="color: #555;"></i> Clases grupales</li>
+                            <li><i class="fa-solid fa-xmark" style="color: #555;"></i> Entrenador personal</li>
+                        </ul>
+                        <button class="btn btn-outline-neon w-100" onclick="showPlanModal('Basico', 29)">Seleccionar</button>
+                        </div>
+                    </div>
+
+                    <!--Plan Premium-->
+                    <div class="col-md-4">
+                        <div class="pricing-card popular">
+                            <div class="badge-popular">MAS POPULAR</div>
+                            <h3 class="text-white">Premiun</h3>
+                            <div class="price">$59<span style="font-size: 1rem; color: var(--text-muted);">/mes</span></div>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Acceso total 24/7</li>
+                                <li><i class="fa-solid fa-check"></i> Todas las clases grupales</li>
+                                <li><i class="fa-solid fa-check"></i> Casillero VIP</li>
+                                <li><i class="fa-solid fa-check"></i> 2 sesiones con entrenador</li>
+                            </ul>
+                            <button class="btn btn-neon w-100" onclick="showPlanModal('Premium' , 59)">Selecionar</button>
+                        </div>
+                    </div> 
+                    <!--Plan Elite-->
+                    <div class="col-md-4">
+                        <div class="pricing-card">
+                            <h3 class="text-white">Elite</h3>
+                            <div class="price">$99<span style="font-size: 1rem; color: var(--text-muted);">/mes</span></div>
+                            <ul>
+                                <li><i class="fa-solid fa-check"></i> Todo lo del plan Premium</li>
+                                <li><i class="fa-solid fa-check"></i> Entrenador personal ilimitado</li>
+                                <li><i class="fa-solid fa-check"></i> Plan de nutrición</li>
+                                <li><i class="fa-solid fa-check"></i> Acceso a área de recuperación</li>
+                            </ul>
+                            <button class="btn btn-outline-neon w-100" onclick="showPlanModal('Elite', 99)">Seleccionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!--FOOTER-->
+    <footer>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-4 mb-md-0">
+                    <h3 class="text-white"><i class="fa-solid fa-dumbbell me-2" style="color:var(--primary-color);"></i>IRONFIT></h3>
+                    <p class="text-muted mt-2 small">Tansformando vidas desde 2020.</p>
+                </div>
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <p class="text-muted small mb-0">&copy; 2024 IRONFIT. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SCRIPTS PERSONALIZADOS -->
+    <script>
+        // Efecto Navbar al hacer scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('mainNav');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+          // Modal de Prueba Gratis (SweetAlert2)
+        function showTrialModal() {
+            Swal.fire({
+                title: '¡Prueba Gratis!',
+                html: `
+                    <p class="mb-3">Déjanos tus datos y te contactaremos para agendar tu clase de prueba sin costo.</p>
+                    <input type="text" id="swal-name" class="form-control mb-2" placeholder="Nombre completo" style="background: #222; border: 1px solid #444; color: white;">
+                    <input type="email" id="swal-email" class="form-control" placeholder="Correo electrónico" style="background: #222; border: 1px solid #444; color: white;">
+                `,
+                icon: 'info',
+                iconHtml: '<i class="fa-solid fa-gift" style="color: var(--primary-color);"></i>',
+                background: '#151515',
+                color: '#fff',
+                confirmButtonText: '¡Reservar Ahora!',
+                confirmButtonColor: '#ff003c',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                cancelButtonColor: '#333',
+                customClass: {
+                    popup: 'custom-swal',
+                    title: 'custom-title',
+                    htmlContainer: 'custom-html',
+                    confirmButton: 'custom-btn',
+                    cancelButton: 'custom-btn-cancel'
+                },
+                preConfirm: () => {
+                    const name = document.getElementById('swal-name').value;
+                    const email = document.getElementById('swal-email').value;
+                    if (!name || !email) {
+                        Swal.showValidationMessage('Por favor, llena todos los campos');
+                        return false;
+                    }
+                    return { name: name, email: email };
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: '¡Registro Exitoso!',
+                        text: `Gracias ${result.value.name}, te escribiremos a ${result.value.email} pronto.`,
+                        icon: 'success',
+                        background: '#151515',
+                        color: '#fff',
+                        confirmButtonColor: '#ff003c',
+                        customClass: { popup: 'custom-swal', confirmButton: 'custom-btn' }
+                    });
+                }
+            });
+        }
+
+        // Modal de Planes (SweetAlert2)
+        function showPlanModal(planName, price) {
+            Swal.fire({
+                title: `Plan ${planName}`,
+                html: `
+                    <p class="mb-4">Estás a un paso de alcanzar tus metas. ¡Únete al plan <strong style="color: var(--primary-color);">${planName}</strong> por solo <strong>$${price}/mes</strong>!</p>
+                    <div class="d-flex justify-content-center gap-2 mb-3">
+                        <i class="fa-solid fa-credit-card fa-2x" style="color: #444;"></i>
+                        <i class="fa-brands fa-cc-visa fa-2x" style="color: #444;"></i>
+                        <i class="fa-brands fa-cc-mastercard fa-2x" style="color: #444;"></i>
+                    <div>
+                `,
+                icon: 'question',
+                iconHtml: '<i class="fa-solid fa-dumbbell" style="color: var(--primary-color);"></i>',
+                showCancelButton: true,
+                confirmButtonText: 'Pagar y Suscribirse',
+                cancelButtonText: 'Revisar otros',
+                background: '#151515',
+                color: '#fff',
+                confirmButtonColor: '#ff003c',
+                cancelButtonColor: '#333',
+                customClass: {
+                    popup: 'custom-swal',
+                    title: 'custom-title',
+                    htmlContainer: 'custom-html',
+                    confirmButton: 'custom-btn',
+                    cancelButton: 'custom-btn-cancel'
+                }
+                 }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: '¡Bienvenido a Bordo!',
+                        text: 'Tu membresía ha sido activada. Revisa tu correo para el acceso.',
+                        icon: 'success',
+                        background: '#151515',
+                        color: '#fff',
+                        confirmButtonColor: '#ff003c',
+                        customClass: { popup: 'custom-swal', confirmButton: 'custom-btn' }
+                    });
+                }
+            });
+        }
+
+         // Modal de Clases con Slider de Imágenes (SweetAlert2)
+        function showClassModal(className, subtitle, images) {
+            // Generar HTML para las imágenes del slider
+            let imagesHtml = images.map(img => `<img src="${img}" alt="${className}">`).join('');
+
+            Swal.fire({
+                title: className,
+                html: `
+                    <p class="mb-3" style="color: var(--primary-color); font-weight: bold; text-transform: uppercase;">${subtitle}</p>
+                    <p class="mb-4">Ven y experimenta una sesión diseñada para llevar tu cuerpo al límite. Nuestros coaches te guiarán en cada paso.</p>
+                    <div class="modal-slider">
+                        ${imagesHtml}
+                    </div>
+                    <p class="mt-3 text-muted" style="font-size: 0.8rem;"><i class="fa-solid fa-arrows-left-right me-1"></i> Desliza para ver más fotos</p>
+                `,
+                imageWidth: 400,
+                imageHeight: 200,
+                imageAlt: className,
+                showCancelButton: true,
+                confirmButtonText: 'Reservar Clase',
+                cancelButtonText: 'Cerrar',
+                background: '#151515',
+                color: '#fff',
+                confirmButtonColor: '#ff003c',
+                cancelButtonColor: '#333',
+                customClass: {
+                    popup: 'custom-swal',
+                    title: 'custom-title',
+                    htmlContainer: 'custom-html',
+                    confirmButton: 'custom-btn',
+                    cancelButton: 'custom-btn-cancel'
+                }
+                 }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: '¡Reserva Confirmada!',
+                        text: `Te esperamos en la clase de ${className}.`,
+                        icon: 'success',
+                        background: '#151515',
+                        color: '#fff',
+                        confirmButtonColor: '#ff003c',
+                        customClass: { popup: 'custom-swal', confirmButton: 'custom-btn' }
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+</html>
